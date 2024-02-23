@@ -7,3 +7,23 @@
     padding-top: nb-theme(layout-padding-top);
   }
 }
+
+.content-padding{
+  padding : 0px !important;
+}
+
+
+nb-layout-header{
+  background-color: rgb(0, 78, 175);
+  // background-image: url("/assets/images/FOC_BackgroundImage.jpg");
+  // background-repeat: no-repeat;
+  // background-size: 100% 100%;
+}
+nb-layout-column{
+  padding: 0px !important;
+ // background-color: white;
+}
+ngx-footer
+{
+  height: 20px !important;
+}

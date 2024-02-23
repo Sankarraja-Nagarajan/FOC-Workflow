@@ -1,0 +1,189 @@
+<div class="container-fluid">
+    <div class="row gap-5 m-3">
+        <div class="d-flex col ClickedAllCard" [class.active]="activeCard == 1">
+
+            <div id="All" class="d-flex justify-content-start row gap-3">
+                <div class="p-3 d-flex">
+                    <div class="d-flex col-md-10">
+                        <div class="AllDot"></div>
+                        <div class="AllTextOutline ms-1">
+                            <span>All</span>
+                            <div class="d-flex justify-content-center mt-2">{{dashboardTable.allData.length}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="material-icons"> bar_chart </span>
+                    </div>
+                </div>
+                <div class="boxBorder"></div>
+                <div class="text d-flex justify-content-between">
+                    <span class="row  ps-4 mb-2">View Details</span>
+                    <mat-icon (click)="CardClicked(1)" (click)="selectStatus('All')">remove_red_eye</mat-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex col ClickedPendingCard" [class.active]="activeCard == 2">
+            <div id="Pending" class="d-flex justify-content-start row gap-3">
+                <div class="p-3 d-flex">
+                    <div class="d-flex col-md-10">
+                        <div class="PendingDot"></div>
+                        <div class="PendingTextOutline ms-1">
+                            <span>Pending</span>
+                            <div class="d-flex justify-content-center mt-2">{{dashboardTable.pendingData.length}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="material-icons"> insert_chart </span>
+                    </div>
+                </div>
+                <div class="boxBorder"></div>
+                <div class="text d-flex justify-content-between">
+                    <span class="row  ps-4 mb-2">View Details</span>
+                    <mat-icon (click)="CardClicked(2)" (click)="selectStatus('Pending')">remove_red_eye</mat-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex col ClickedApproveCard" [class.active]="activeCard == 3">
+            <div id="Approve" class="d-flex justify-content-start row gap-3">
+                <div class="p-3 d-flex">
+                    <div class="d-flex col-md-10">
+                        <div class="ApproveDot"></div>
+                        <div class="ApproveTextOutline ms-1">
+                            <span>Approved</span>
+                            <div class="d-flex justify-content-center mt-2">{{dashboardTable.approvedData.length}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="material-icons"> stacked_bar_chart </span>
+                    </div>
+                </div>
+                <div class="boxBorder"></div>
+                <div class="text d-flex justify-content-between">
+                    <span class="row ps-4 mb-2">View Details</span>
+                    <mat-icon (click)="CardClicked(3)" (click)="selectStatus('Approve')">remove_red_eye</mat-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex col ClickedRejectCard" [class.active]="activeCard == 4" >
+            <div id="Reject" class="d-flex justify-content-start row gap-3">
+                <div class="p-3 d-flex">
+                    <div class="d-flex col-md-10">
+                        <div class="RejectDot"></div>
+                        <div class="RejectTextOutline ms-1">
+                            <span>Rejected</span>
+                            <div class="d-flex justify-content-center mt-2">{{dashboardTable.rejectedData.length}}</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <span class="material-icons"> insert_chart_outlined </span>
+                    </div>
+
+                </div>
+                <div class="boxBorder"></div>
+                <div class="text d-flex justify-content-between">
+                    <span class="row ps-4 mb-2">View Details</span>
+                    <mat-icon (click)="CardClicked(4)" (click)="selectStatus('Reject')">remove_red_eye</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="borders"></div>
+    <div class="borderstraight"></div>
+    <mat-card class="mb-2 matCard">
+        <mat-card-content>
+
+
+            <div class="row justify-content-between" *ngIf="userDetails.Role != 'A'">
+                <div class="col-4 row mb-3">
+                    <div class="col" *ngIf="!showDownload">
+                        <button class="export-excel" mat-raised-button (click)="selectTrackingNo()"><mat-icon>download</mat-icon>Export Excel</button>
+                    </div>
+                    <div class="col d-flex gap-3" *ngIf="showDownload">
+                        <button mat-raised-button class="export-btn" (click)="download()"> <mat-icon>download</mat-icon> Download </button>
+                        <button mat-raised-button class="export-cancel-btn" (click)="cancelDownload()"> <mat-icon>cancel_presentation</mat-icon> Cancel </button>
+                    </div>
+                 </div>
+                 <div class="col-3" *ngIf="pendingBtn">
+                    <button class="pending-btn" mat-raised-button (click)="pendingDownload()"><mat-icon>download</mat-icon>Pending Excel Download</button>
+                 </div>
+             </div>
+
+
+
+            <div class="row overflow-auto table">
+                <table mat-table [dataSource]="dataSource">
+
+                    <ng-container matColumnDef="SELECET">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                              
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+                                >
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="TrackingNo">
+                        <th mat-header-cell *matHeaderCellDef> Tracking No </th>
+                        <td mat-cell *matCellDef="let element"> {{element.TrackingNo}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="SalesOrganization">
+                        <th mat-header-cell *matHeaderCellDef> Sales Organization </th>
+                        <td mat-cell *matCellDef="let element"> {{element.SalesOrganization}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="DistributionChannel">
+                        <th mat-header-cell *matHeaderCellDef> Distribution Channel </th>
+                        <td mat-cell *matCellDef="let element"> {{element.DistributionChannel}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="ConditionType">
+                        <th mat-header-cell *matHeaderCellDef> Condition Type </th>
+                        <td mat-cell *matCellDef="let element"> {{element.ConditionType}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Review">
+                        <th mat-header-cell *matHeaderCellDef > Review </th>
+                        <td mat-cell *matCellDef="let element"> <mat-icon (click)="review(element)">remove_red_eye</mat-icon> </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Status">
+                        <th mat-header-cell *matHeaderCellDef> Status </th>
+                        <td mat-cell *matCellDef="let element"> 
+                            <button class="reviewBtn" mat-raised-button *ngIf="element.Status == 'Active'" (click)="approve(element)"> Review </button>
+                            <span *ngIf="element.Status == 'Approved'" (click)="viewStatus(element)" class="approve-btn"> {{element.Status}} </span>
+                            <span *ngIf="element.Status == 'Rejected'" (click)="viewStatus(element)" class="reject-btn"> {{element.Status}} </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- <ng-container matColumnDef="Currency">
+                        <th mat-header-cell *matHeaderCellDef> Currency </th>
+                        <td mat-cell *matCellDef="let element"> {{element.Currency}} </td>
+                    </ng-container> -->
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky : true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                </table>
+            </div>
+            <mat-paginator class="justify-content-end p-0" [style.display]="tableData?.length?'inherit':'none'"
+                [length]="tableData?.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+            </mat-paginator>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+
+ 
+ 
+ 
+ 

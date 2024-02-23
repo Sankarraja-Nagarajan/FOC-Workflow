@@ -1,0 +1,93 @@
+<!-- <div class="container-fluid">
+    <div class="row">
+        <div class="d-flex col-md-8">
+           <div class="image">
+            <img src="/assets/images/login_image.jpg" alt="" width="70%">
+           </div>
+        </div>
+        <div class="d-flex col-md-3">
+          
+         <div class="d-flex row mt-3">
+          <form [formGroup]="loginFormGroup">
+            <span class="Title mt-5 d-flex justify-content-center">Log In</span>
+                    <div class="d-flex justify-content-center mt-5">
+                        <mat-form-field appearance="fill">
+                            <mat-label>User Name</mat-label>
+                            <input class="formField" matInput formControlName="UserName">
+                            <mat-icon matSuffix>account_circle</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Password</mat-label>
+                            <input [type]="hide ? 'password' : 'text'" class="formField" matInput formControlName="Password">
+                            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </mat-form-field>
+                    </div>
+                <div class="d-flex justify-content-center forgot">
+                    <div class="w-75 d-flex justify-content-end">
+                        <span>Forgot Password</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-5">
+                    <button mat-flat-button (click)="Login()">Login</button>
+                </div>
+          </form>
+         
+        </div>
+    </div>
+</div> -->
+
+
+
+
+<div class="container-fluid login justify-content-center ">
+    <div class="row">
+        <div class="col-md-8 image d-flex d-none d-md-block p-0">
+        </div>
+         <div class="col-md-4">
+           
+           <mat-card class="login-container-content p-3  vh-75 d-flex justify-content-center align-items-center">
+            <div class="d-flex row  d-flex align-items-center">
+                <form [formGroup]="loginFormGroup">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-6">
+                            <img class="w-100" src="/assets/images/Continental_Logo_Tagline_Black.jpg" alt="Continental-Logo" width="100%" height="100%">
+
+                        </div>
+                        <div class="col-6 d-flex justify-content-end mt-2">
+                            <span class="Title">Log In</span>
+                        </div>
+                    </div>
+                 
+                  <span class="SubTitle mt-3 d-flex justify-content-center">FOC WORKFLOW</span>
+                          <div class="d-flex justify-content-center mt-3">
+                              <mat-form-field appearance="fill">
+                                  <mat-label>User Id</mat-label>
+                                  <input class="formField" matInput formControlName="UserId">
+                                  <mat-icon matSuffix>account_circle</mat-icon>
+                              </mat-form-field>
+                          </div>
+                          <div class="d-flex justify-content-center">
+                              <mat-form-field appearance="fill">
+                                  <mat-label>Password</mat-label>
+                                  <input [type]="hide ? 'password' : 'text'" class="formField" matInput formControlName="Password">
+                                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                              </mat-form-field>
+                          </div>
+                      <div class="d-flex justify-content-center forgot">
+                          <div class="w-75 d-flex justify-content-end">
+                              <span  (click)="OpenForgotPasswordDialog('Forgot Password')">Forgot Password</span>
+                          </div>
+                      </div>
+                      <div class="d-flex justify-content-center mt-3 mb-3">
+                          <button mat-flat-button (click)="Login()">Login</button>
+                      </div>
+                </form>
+               
+              </div>
+           </mat-card>
+         </div>
+    </div>
+  
+</div>
